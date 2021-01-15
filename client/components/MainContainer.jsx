@@ -1,5 +1,6 @@
 import React from 'react';
-import ListContainer from 'ListContainer.jsx';
+import ListContainer from './ListContainer.jsx';
+import AddItem from './AddItem.jsx';
 
 const MainContainer = () => {
   return (

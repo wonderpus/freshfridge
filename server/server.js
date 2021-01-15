@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
-const expressHbs = require('express-handlebars');
+//const expressHbs = require('express-handlebars');
 const bodyparser = require('body-parser');
 
 const PORT = 3000;
@@ -11,9 +11,9 @@ const app = express();
 
 // example of serving a request without a router
 // serves index.html on the route '/'
-app.get('/login', (req, res) => {
+app.get('/', (req, res) => {
   return res.status(200)
-            .sendFile(path.join(__dirname, '../public/index.html'));
+            .sendFile(path.join(__dirname, './index.html')); 
 });
 
 

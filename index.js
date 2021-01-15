@@ -1,6 +1,6 @@
 import React from 'react';
-import ReachDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import ReactDOM from 'react-dom';
+import './client/styles/index.css';
+import MainContainer from './client/components/MainContainer.jsx';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<MainContainer />, document.getElementById('root'));

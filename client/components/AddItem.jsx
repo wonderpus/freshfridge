@@ -1,6 +1,6 @@
 import React from 'react';
 
-const List = () => {
+const AddItem = () => {
   return (
     <div>
 
@@ -8,4 +8,4 @@ const List = () => {
   )
 };
 
-export default ListContainer;
+export default AddItem;
