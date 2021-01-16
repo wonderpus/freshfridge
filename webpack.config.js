@@ -5,7 +5,7 @@ module.exports = {
     entry: './index.js', 
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: './',      // what does this setting do?
+        // publicPath: '/',      // what does this setting do?
         filename: 'index_bundle.js'
     },
     module: {
@@ -40,12 +40,12 @@ module.exports = {
     devServer: {
         host: 'localhost',
         port: 8000,
-        // match the output path
-        contentBase: './', 
+        // where to load static files from (eg, index.html)
+        contentBase: path.join(__dirname, 'index.html'), 
         // enable HMR on the devServer
         hot: true,
         // match the output 'publicPath'
-        publicPath: './dist/',
+        // publicPath: '/dist/',
         // fallback to root for other urls
         historyApiFallback: true,
         inline: true,
