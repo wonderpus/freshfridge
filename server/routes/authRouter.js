@@ -25,7 +25,9 @@ router.post('/login',
     (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
 );
 
-router.post('/login',    
+router.post('/signup',
+    authController.checkUniqueness,    
+    authController.addUser,
     authController.findUser,
     authController.setCookie,
     (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?

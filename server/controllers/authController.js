@@ -34,6 +34,60 @@ authController.findUser = (req, res, next) => {
   });
 };
 
+// query database to find out if a record already exists on users table with that username
+authController.checkUniqueness = (req, res, next) => {
+  const { name, password } = req.body;
+  console.log('Name and password received at authController.checkUniqueness: ', name, password);
+
+  // query for the _id on users table that matches the received name and password
+  const query = {
+    text: `SELECT _id
+    FROM users
+    WHERE name=$1`,
+    values: [name, password]
+  }
+
+  db.query(query, (error, result) => {
+    if (error) {
+      console.log('findUser ERROR: ', error);
+      return next(error);
+    }
+
+    console.log('checkUniqueness query result: ', result.rows);
+    // if the response from the database is an empty array, that means no user was found with that username. User may continue sign-up process.
+    if (!result.rows.length) {
+      return next();
+    }
+    else {
+      return res.status(404).json({ error: 'An account with that username already exists. Please log in or try a different username.' });
+    }
+  });
+};
+
+authController.addUser = (req, res, next) => {
+  // add this user to the database. We want to get their user id.
+  const { name, password } = req.body;
+  console.log('Name and password received at authController.addUser: ', name, password);
+
+  // query for the _id on users table that matches the received name and password
+  const query = {
+    text: `INSERT INTO users
+    VALUES $1, $2`,
+    values: [name, password]
+  };
+
+  db.query(query, (error, result) => {
+    if (error) {
+      console.log('addUser ERROR: ', error);
+      return next(error);
+    }
+
+    console.log('addUser query result: ', result.rows);
+    return next();
+  });
+};
+
+
 // --> make a cookie
 // res.cookie('user_id', 'queried user id')
 // information on user returned from database
