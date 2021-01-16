@@ -1,0 +1,15 @@
+ol {
+  width: 200px;
+}
+
+.high-priority {
+  background-color: red;
+}
+
+.med-priority {
+  background-color: yellow;
+}
+
+.low-priority {
+  background-color: green;
+}
