@@ -6,20 +6,20 @@ const AddItem = () => {
   const [shareability, setShareability] = useState(false);    // shareable
   const [assignedList, setAssignedList] = useState("grocery");    // which list to add it to
 
-  // click handler: initiates an http request to send the user's input to the database
+  // click handler: initiates an http request to send the new item's information to the database
   const submit = () => {
     console.log('Form input: ', itemName, priority, shareability, assignedList);
 
     fetch('/lists', {
       method: 'PUT',
       body: {
-
+        name: itemName,
+        location: assignedList,
+        priority
       }
     }).then((res) => res.json())
       .then((data) => {
         console.log('Response to AddItem.jsx PUT: ', data);
-        // set state with the fetched array
-        setItems(data);
     }).catch((error) => console.log('ERR at AddItem.jsx PUT: ', error));
   }
 

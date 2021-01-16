@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 
-'HIIIIII';
-
 const Auth = () => {
   const [authStr, setAuthStr] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const auth = (authStr) => {
+  const auth = (authStr) => {;
+
     switch(authStr){
       case 'signup':
         return (
@@ -47,36 +46,36 @@ const Auth = () => {
     }
   }
 
+  // click handler: initiates an http request to send the new user's information to the database
   const signUpUser = () => {
-    console.log('Signing up user: ', username);
+    console.log('Signing up user: ', username, password, password2);
 
-    fetch('/', {
-      method: '',
+    fetch('/signup', {
+      method: 'PUT',
       body: {
-
+        name: username,
+        password,
+        password2
       }
     }).then((res) => res.json())
       .then((data) => {
-        console.log('Response to AddItem.jsx PUT: ', data);
-        // set state with the fetched array
-        setItems(data);
-    }).catch((error) => console.log('ERR at AddItem.jsx PUT: ', error));
+        console.log('Response to sign-up PUT: ', data);
+    }).catch((error) => console.log('ERR at sign-up PUT: ', error));
   }
 
   const logInUser = () => {
-    console.log('Logging in user: ', username);
+    console.log('Logging in user: ', username, password);
 
-    fetch('/', {
-      method: '',
+    fetch('/login', {
+      method: 'POST',
       body: {
-
+        name: username,
+        password,
       }
     }).then((res) => res.json())
       .then((data) => {
-        console.log('Response to AddItem.jsx PUT: ', data);
-        // set state with the fetched array
-        setItems(data);
-    }).catch((error) => console.log('ERR at AddItem.jsx PUT: ', error));
+        console.log('Response to log-in PUT: ', data);
+    }).catch((error) => console.log('ERR at log-in PUT: ', error));
   }
 
   return (
