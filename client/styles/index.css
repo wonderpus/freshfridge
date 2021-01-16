@@ -1,3 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.MainContainer {
+  padding: 10px 10px 10px 30px;
+}
+
 ol {
   width: 200px;
 }
