@@ -72,7 +72,7 @@ const Auth = () => {
     console.log('Logging in user: ', username, password);
 
     fetch('/login', {
-      method: 'POST',we're still working on storing the returned user so may be this might work after we s
+      method: 'POST',
       body: {
         name: username,
         password,
