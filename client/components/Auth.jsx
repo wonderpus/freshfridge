@@ -57,10 +57,13 @@ const Auth = () => {
 
     fetch('/auth/signup', {
       method: 'PUT',
-      body: {
+      headers: {
+        'Content-Type': 'application/json charset=utf-8'
+      },
+      body: JSON.stringify({
         name: username,
         password
-      }
+      })
     }).then((res) => res.json())
       .then((data) => {
         console.log('Response to sign-up PUT: ', data);

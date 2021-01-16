@@ -3,33 +3,27 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-//const expressHbs = require('express-handlebars');
-//const bodyparser = require('body-parser');
 const authRouter = require('./routes/authRouter.js');
 const listRouter = require('./routes/listRouter.js');
 
 //require model for query
 const db = require('./models/freshModel');
-
 const PORT = 3000;
 const app = express();
 
-
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.json());    // parses request bodies
+app.use(express.json());    // parses request bodies same as body-parser
 
-// example of serving a request without a router
-// serves index.html on the route '/'
+//Any requests to auth will be handled within authRouter.js
+app.use('/auth', authRouter);
+
+//Any requests to list will be handled within listRouter.js
+app.use('/lists', listRouter);
+
+// serve index.html on the route '/'
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html')); 
 });
-
-//Any requests to auth will be handled within OAuth.js.
-app.use('/auth', authRouter);
-
-//Any requests to list will be handled within listRouter.js.
-app.use('/lists', listRouter);
 
 
 //testing our query 
@@ -64,4 +58,5 @@ app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
 
-module.exports = app;
+
+// module.exports = app;

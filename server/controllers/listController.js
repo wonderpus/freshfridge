@@ -76,8 +76,7 @@ const listController = {
     //$1 = location/priority/shared, $2 = updated value, $3 = _id of the item
     updateItem (req, res, next) {
       console.log('Data type of item id: ', typeof req.body.id);
-        const query = 'UPDATE items SET ' + req.body.set + ' = ' + req.body.newVal +
-        'WHERE _id = ' + ' req.body.id;
+        const query = 'UPDATE items SET ' + req.body.set + ' = ' + req.body.newVal + 'WHERE _id = ' + req.body.id;
         const columnInfo = [req.body.newVal, req.body.id];
         db.query(query, columnInfo, (err, data) => {
             if(err) {

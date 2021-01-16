@@ -1,11 +1,6 @@
 const { OAuth2Client } = require('google-auth-library')
 const credentials = require('../../client/components/secrets.js');
-
 const express = require('express');
-// const path = require('path');
-// const cors = require('cors');
-const bodyparser = require('body-parser');
-//const app = express();
 const router = express.Router();
 const authController = require('../controllers/authController.js');
 
