@@ -5,6 +5,9 @@ const cors = require('cors');
 //const expressHbs = require('express-handlebars');
 const bodyparser = require('body-parser');
 
+//require model for query
+const db = require('./models/freshModel');
+
 const PORT = 3000;
 const app = express();
 
@@ -12,10 +15,24 @@ const app = express();
 // example of serving a request without a router
 // serves index.html on the route '/'
 app.get('/', (req, res) => {
-  return res.status(200)
-            .sendFile(path.join(__dirname, './index.html')); 
+  return res.status(200).sendFile(path.join(__dirname, './index.html')); 
 });
 
+
+//testing our query 
+app.get('/testGet', (req, res) => {
+  const query = 'SELECT * FROM users'
+  db.query(query, (err, data) => {
+    if(err) {
+      console.log(err);
+      return res.send(err);
+    }
+    else {
+      console.log(data);
+      return res.send(data.rows);
+    }
+  })
+});
 
 
 /*
@@ -30,3 +47,9 @@ router.put('/api/comments',
   }
 )
 */
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port: ${PORT}...`);
+});
+
+module.exports = app;
