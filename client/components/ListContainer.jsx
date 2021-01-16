@@ -19,7 +19,8 @@ const ListContainer = () => {
         // set state with the fetched array
         setItems(data);
     }).catch((error) => console.log('ERR at List.jsx GET list: ', error));
-  }, [...items.fridge, ...items.grocery]);      // TODO: does useEffect work with 1D objects in the dependency array?
+  }, [...items.fridge, ...items.grocery]);      
+  // TODO: does useEffect work with 1D objects in the dependency array, or does it need primitive data types?
 
   return (
     <div>
