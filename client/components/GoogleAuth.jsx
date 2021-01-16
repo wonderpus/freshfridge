@@ -20,6 +20,17 @@ const GoogleAuth = () => {
       // store returned user somehow
     }
      
+
+    // const appStart = function () {
+    //   gapi.load('auth2', function() {
+    //     if(!(auth2 = gapi.auth2.getAuthInstance())) {
+    //       auth2 = gapi.auth2.init({ client_id: credentials.clientID })
+    //      // now you have access to auth2 and can still use auto rendered button!
+    //     }
+    //   });
+    // };
+    
+
   return (
     <div className="GoogleAuth">
         <h1>Login with Google</h1>
@@ -31,6 +42,8 @@ const GoogleAuth = () => {
             onFailure={handleLogin}
             cookiePolicy={'single_host_origin'}
         />
+
+      <script src=" https://apis.google.com/js/platform.js?onload=googleInit"></script>
     </div>
   )
 };

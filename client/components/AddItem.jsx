@@ -10,12 +10,13 @@ const AddItem = () => {
   const submit = () => {
     console.log('Form input: ', itemName, priority, shareability, assignedList);
 
-    fetch('/lists', {
+    fetch('/lists/', {
       method: 'PUT',
       body: {
         name: itemName,
         location: assignedList,
-        priority
+        priority,
+        shared: shareability
       }
     }).then((res) => res.json())
       .then((data) => {
