@@ -1,4 +1,7 @@
-const db = require('./models/freshModel.js');
+const db = require('../models/freshModel.js');
+
+// TODO: get the actual user id off the cookie.
+const USER_ID = 1;
 
 const listController = {
     //Sign-up - Add to users table
@@ -9,25 +12,35 @@ const listController = {
         SELECT _id, name, priority, location, shared
         FROM items
         WHERE user_id = $1`
-      const id = [req.query.id]; //the user_id comes in on a query in the url
-      db.query(query, id, (err, data) => {
+      // const id = [req.params.id]; //the user_id comes in on a query in the url
+      
+      // TODO: get the actual user id off the cookie.
+      
+      db.query(query, [USER_ID], (err, data) => {
         if(err) {
           return next({
             log: `Express error handler caught in getList ERROR: ${err}`,
             message: { 'err': 'An error occurred in getList' }})
         } 
         else {
-          res.locals.items = data.rows
+          console.log('Result of addItem query: ', data.rows);
+          res.locals.items = data.rows;
           return next();
         }
       });
     },
+
     //addItem - Insert into items table based on userid, priority, shareable?, location... next getList
     addItem (req, res, next) {
+
+      // TODO: get the actual user id off the cookie.
+      console.log(`Request Body: `, req.body);
+
       const query = `
         INSERT INTO items (name, priority, location, shared, user_id)
         VALUES ($1, $2, $3, $4, $5)`
-      const entries = [...req.body, req.query.id];
+      
+        const entries = [req.body.name, req.body.priority, req.body.location, req.body.shared, USER_ID];
         db.query(query, entries, (err, data) => {
           if(err) {
             return next({
@@ -35,6 +48,7 @@ const listController = {
               message: { 'err': 'An error occurred in addItem' }})
           } 
           else {
+            console.log('Result of addItem query: ', data);
             return next();
           }
         })
@@ -52,7 +66,8 @@ const listController = {
             message: { 'err': 'An error occurred in deleteItem' }})
         } 
         else {
-            return next();
+          console.log('Result of deleteItem query: ', data);
+          return next();
         }
       });
     },
@@ -72,7 +87,8 @@ const listController = {
                   message: { 'err': 'An error occurred in updateItem' }})
               } 
               else {
-                  return next();
+                console.log('Result of updateItem query: ', data);
+                return next();
               } 
         });
     }

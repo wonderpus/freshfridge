@@ -8,7 +8,7 @@ const Auth = () => {
 
   const auth = (authStr) => {;
 
-    switch(authStr){
+    switch(authStr) {
       case 'signup':
         return (
           <div>
@@ -54,8 +54,7 @@ const Auth = () => {
       method: 'PUT',
       body: {
         name: username,
-        password,
-        password2
+        password
       }
     }).then((res) => res.json())
       .then((data) => {
