@@ -109,4 +109,7 @@ dist
 #Google Auth credential
 ClientID.md 
 process.env
-# secrets.js
+secrets.js
+
+#database secrets
+# databaseURI.js

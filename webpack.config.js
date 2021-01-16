@@ -5,7 +5,7 @@ module.exports = {
     entry: './index.js', 
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',      // what does this setting do?
+        publicPath: './',      // what does this setting do?
         filename: 'index_bundle.js'
     },
     module: {
@@ -45,7 +45,7 @@ module.exports = {
         // enable HMR on the devServer
         hot: true,
         // match the output 'publicPath'
-        publicPath: '/dist/',
+        publicPath: './dist/',
         // fallback to root for other urls
         historyApiFallback: true,
         inline: true,

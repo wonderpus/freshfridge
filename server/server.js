@@ -15,7 +15,7 @@ const app = express();
 // example of serving a request without a router
 // serves index.html on the route '/'
 app.get('/', (req, res) => {
-  return res.status(200).sendFile(path.join(__dirname, './index.html')); 
+  return res.status(200).sendFile(path.join(__dirname, '../index.html')); 
 });
 
 
