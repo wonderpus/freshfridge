@@ -112,4 +112,4 @@ process.env
 secrets.js
 
 #database secrets
-# databaseURI.js
+databaseURI.js
