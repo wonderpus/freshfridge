@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+'HIIIIII';
+
 const Auth = () => {
   const [authStr, setAuthStr] = useState('');
   const [username, setUsername] = useState('');
@@ -47,10 +49,34 @@ const Auth = () => {
 
   const signUpUser = () => {
     console.log('Signing up user: ', username);
+
+    fetch('/', {
+      method: '',
+      body: {
+
+      }
+    }).then((res) => res.json())
+      .then((data) => {
+        console.log('Response to AddItem.jsx PUT: ', data);
+        // set state with the fetched array
+        setItems(data);
+    }).catch((error) => console.log('ERR at AddItem.jsx PUT: ', error));
   }
 
   const logInUser = () => {
     console.log('Logging in user: ', username);
+
+    fetch('/', {
+      method: '',
+      body: {
+
+      }
+    }).then((res) => res.json())
+      .then((data) => {
+        console.log('Response to AddItem.jsx PUT: ', data);
+        // set state with the fetched array
+        setItems(data);
+    }).catch((error) => console.log('ERR at AddItem.jsx PUT: ', error));
   }
 
   return (

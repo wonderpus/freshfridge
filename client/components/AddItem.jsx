@@ -8,7 +8,19 @@ const AddItem = () => {
 
   // click handler: initiates an http request to send the user's input to the database
   const submit = () => {
-    console.log('Form input: ', itemName, priority, );
+    console.log('Form input: ', itemName, priority, shareability, assignedList);
+
+    fetch('/lists', {
+      method: 'PUT',
+      body: {
+
+      }
+    }).then((res) => res.json())
+      .then((data) => {
+        console.log('Response to AddItem.jsx PUT: ', data);
+        // set state with the fetched array
+        setItems(data);
+    }).catch((error) => console.log('ERR at AddItem.jsx PUT: ', error));
   }
 
   return (

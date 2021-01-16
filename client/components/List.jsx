@@ -4,7 +4,8 @@ const List = (props) => {
   // const [stateVariableName, setStateVariable] = useState(defaultValue);
   const type = props.type;
   const items = props.items;
-  const setPriority = (item) => {
+
+  const setPriorityClass = (item) => {
     switch (item.priority) {
       case 1:
         return "high-priority";
@@ -22,11 +23,11 @@ const List = (props) => {
     let b = itemB.priority;
     if (a === null) a = 4;
     if (b === null) b = 4;
-    
+
     return a - b;
   })
     .map((item, index) => {
-      const prior = setPriority(item);
+      const prior = setPriorityClass(item);
 
       return <li key={`type${index}`}
                 className={prior}>
@@ -36,8 +37,7 @@ const List = (props) => {
 
   return (
     <div>
-      { type === "grocery" ? "Grocery List" : "Fridge Contents" }
-      <ol>
+      <ol> { type === "grocery" ? "Grocery List" : "Fridge Contents" }
         {mappedItems}
       </ol>
     </div>
