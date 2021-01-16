@@ -37,7 +37,7 @@ authController.findUser = (req, res, next) => {
 // query database to find out if a record already exists on users table with that username
 authController.checkUniqueness = (req, res, next) => {
   const { name, password } = req.body;
-  console.log('Name and password received at authController.checkUniqueness: ', name, password);
+  console.log('Name and password received at authController.checkUniqueness: ', req.body);
 
   // query for the _id on users table that matches the received name and password
   const query = {
@@ -49,7 +49,7 @@ authController.checkUniqueness = (req, res, next) => {
 
   db.query(query, (error, result) => {
     if (error) {
-      console.log('findUser ERROR: ', error);
+      console.log('checkUniqueness ERROR: ', error);
       return next(error);
     }
 

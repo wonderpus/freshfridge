@@ -2,7 +2,12 @@ const { OAuth2Client } = require('google-auth-library')
 const credentials = require('../../client/components/secrets.js');
 const express = require('express');
 const router = express.Router();
+const cookieParser = require('cookie-parser');
 const authController = require('../controllers/authController.js');
+
+const app = express();
+app.use(cookieParser());
+app.use(express.json()); 
 
 // vanilla authentication
 router.post('/login',    

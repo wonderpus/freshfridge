@@ -12,12 +12,12 @@ const AddItem = () => {
 
     fetch('/lists/', {
       method: 'PUT',
-      body: {
+      body: JSON.stringify({
         name: itemName,
         location: assignedList,
         priority,
         shared: shareability
-      }
+      })
     }).then((res) => res.json())
       .then((data) => {
         console.log('Response to AddItem.jsx PUT: ', data);

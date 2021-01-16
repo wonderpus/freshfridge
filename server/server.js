@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const bodyParser = require("body-parser");
 const authRouter = require('./routes/authRouter.js');
 const listRouter = require('./routes/listRouter.js');
 
@@ -11,6 +12,15 @@ const db = require('./models/freshModel');
 const PORT = 3000;
 const app = express();
 
+var corsOptions = {
+  origin: "http://localhost:8000"   // what should this be?
+};
+
+app.use(cors(corsOptions));
+// parse requests of content-type - application/json
+// app.use(bodyParser.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());    // parses request bodies same as body-parser
 
@@ -22,6 +32,7 @@ app.use('/lists', listRouter);
 
 // serve index.html on the route '/'
 app.get('/', (req, res) => {
+  console.log('Serving index.html');
   return res.status(200).sendFile(path.join(__dirname, '../index.html')); 
 });
 

@@ -55,20 +55,22 @@ const Auth = () => {
       alert('Your passwords must match.');
     };
 
+    // TODO: 404ing. Needs a param?
     fetch('/auth/signup', {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json charset=utf-8'
       },
-      body: JSON.stringify({
+      body: {
         name: username,
         password
-      })
-    }).then((res) => res.json())
+      }
+    })
+      // .then((res) => res.json())
       .then((data) => {
-        console.log('Response to sign-up PUT: ', data);
+        console.log('Response to sign-up POST: ', data);
         // TODO: Invalid signups return a json-formatted object with a message. Display that message to the user.
-    }).catch((error) => console.log('ERR at sign-up PUT: ', error));
+    }).catch((error) => console.log('ERR at sign-up POST: ', error));
   }
 
   const logInUser = () => {
@@ -76,10 +78,13 @@ const Auth = () => {
 
     fetch('/auth/login', {
       method: 'POST',
-      body: {
+      headers: {
+        'Content-Type': 'application/json charset=utf-8'
+      },
+      body: JSON.stringify({
         name: username,
         password,
-      }
+      })
     }).then((res) => res.json())
       .then((data) => {
         console.log('Response to log-in PUT: ', data);
