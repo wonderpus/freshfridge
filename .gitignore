@@ -108,3 +108,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+#Google Auth credential
+ClientID.md 
+process.env
+/client/components/secrets.js
+
+#database secrets
+/server/models/databaseURI.js
