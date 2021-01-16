@@ -8,7 +8,7 @@ const Auth = () => {
 
   const auth = (authStr) => {;
 
-    switch(authStr){
+    switch(authStr) {
       case 'signup':
         return (
           <div>
@@ -47,19 +47,24 @@ const Auth = () => {
   }
 
   // click handler: initiates an http request to send the new user's information to the database
+  // TODO: UX to warn user that they've entered two passwords that don't match.
   const signUpUser = () => {
     console.log('Signing up user: ', username, password, password2);
+
+    if (password !== password2) {
+      alert('Your passwords must match.');
+    };
 
     fetch('/signup', {
       method: 'PUT',
       body: {
         name: username,
-        password,
-        password2
+        password
       }
     }).then((res) => res.json())
       .then((data) => {
         console.log('Response to sign-up PUT: ', data);
+        // TODO: Invalid signups return a json-formatted object with a message. Display that message to the user.
     }).catch((error) => console.log('ERR at sign-up PUT: ', error));
   }
 
@@ -75,6 +80,7 @@ const Auth = () => {
     }).then((res) => res.json())
       .then((data) => {
         console.log('Response to log-in PUT: ', data);
+        // TODO: Invalid logins return a json-formatted object with a message. Display that message to the user.
     }).catch((error) => console.log('ERR at log-in PUT: ', error));
   }
 

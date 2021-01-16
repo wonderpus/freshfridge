@@ -9,6 +9,9 @@ lerna-debug.log*
 # Database URI
 server/models/databaseURI.js
 
+# Google Auth credentials
+client/components/secrets.js
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -106,6 +109,10 @@ dist
 # TernJS port file
 .tern-port
 
-# secrets
-secrets.js
-databaseURI.js
+#Google Auth credential
+ClientID.md 
+process.env
+/client/components/secrets.js
+
+#database secrets
+/server/models/databaseURI.js

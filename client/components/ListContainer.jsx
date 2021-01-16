@@ -11,7 +11,7 @@ const ListContainer = () => {
   // useEffect(callback, [dependencyArray]);
   useEffect(() => {
     // get items from the database: initiate an http request
-    fetch('/lists', {
+    fetch('/lists/', {
       method: 'GET',
     }).then((res) => res.json())
       .then((data) => {

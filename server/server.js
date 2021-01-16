@@ -2,8 +2,11 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 //const expressHbs = require('express-handlebars');
-const bodyparser = require('body-parser');
+//const bodyparser = require('body-parser');
+const authRouter = require('./routes/authRouter.js');
+const listRouter = require('./routes/listRouter.js');
 
 //require model for query
 const db = require('./models/freshModel');
@@ -12,11 +15,21 @@ const PORT = 3000;
 const app = express();
 
 
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.json());    // parses request bodies
+
 // example of serving a request without a router
 // serves index.html on the route '/'
 app.get('/', (req, res) => {
-  return res.status(200).sendFile(path.join(__dirname, './index.html')); 
+  return res.status(200).sendFile(path.join(__dirname, '../index.html')); 
 });
+
+//Any requests to auth will be handled within OAuth.js.
+app.use('/auth', authRouter);
+
+//Any requests to list will be handled within listRouter.js.
+app.use('/lists', listRouter);
 
 
 //testing our query 
@@ -35,18 +48,17 @@ app.get('/testGet', (req, res) => {
 });
 
 
-/*
-// const router = express.Router();
-// routes all API requests through api.js
-app.use('/api', apiRouter);
-// example of using a router to serve a request
-router.put('/api/comments',
-  feedController.addComment,    // <-- key difference: can list callback functions as parameters of a router method
-  (req, res) => {
-    res.status(200).json({status: "okay"});
-  }
-)
-*/
+// default error handler
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
