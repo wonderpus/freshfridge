@@ -5,7 +5,8 @@ import Auth from './Auth.jsx';
 
 const MainContainer = () => {
   return (
-    <div>
+    <div className="MainContainer">
+      <h1>Fresh Fridge</h1>
       <Auth />
       <ListContainer />
       <AddItem />
