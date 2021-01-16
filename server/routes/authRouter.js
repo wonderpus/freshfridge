@@ -9,16 +9,7 @@ const bodyparser = require('body-parser');
 const router = express.Router();
 const authController = require('../controllers/authController.js');
 
-/*This handles POST requests to /api/v1/auth/google , verifying and decoding the token, 
-pulling out the three pieces of information we want to store,
-performs an upsert operation on our database, 
-and returns the retrieved user as JSON.
-*/
-const client = new OAuth2Client(credentials.clientID)
-
-
-// ROUTER METHODS
-// vanilla log in
+// vanilla authentication
 router.post('/login',    
     authController.findUser,
     authController.setCookie,
@@ -32,6 +23,13 @@ router.post('/signup',
     authController.setCookie,
     (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
 );
+
+/* 
+TODO
+
+Handle POST requests coming from the Google OAuth widget, verifying and decoding the token, pulling out the pieces of information from the user's Google account that we want to store, then performing an upsert operation on our database to find * and update * those pieces of information in the user's record if applicable. Return the retrieved user as JSON.
+*/
+const client = new OAuth2Client(credentials.clientID)
 
 // log in with google
 router.post('/login-google',

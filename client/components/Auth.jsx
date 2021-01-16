@@ -55,7 +55,7 @@ const Auth = () => {
       alert('Your passwords must match.');
     };
 
-    fetch('/signup', {
+    fetch('/auth/signup', {
       method: 'PUT',
       body: {
         name: username,
@@ -71,7 +71,7 @@ const Auth = () => {
   const logInUser = () => {
     console.log('Logging in user: ', username, password);
 
-    fetch('/login', {
+    fetch('/auth/login', {
       method: 'POST',
       body: {
         name: username,
