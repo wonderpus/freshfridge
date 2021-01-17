@@ -44,9 +44,9 @@ module.exports = {
         // contentBase: path.join(__dirname, 'index.html'), / this setting was breaking the webpack
         // enable HMR on the devServer
         hot: true,
-        // match the output 'publicPath'
-        // publicPath: '/dist/',    // this setting was breaking the webpack
-        // fallback to root for other urls
+        // // match the output 'publicPath'
+        publicPath: '/dist/',    // this setting was breaking the webpack
+        // // fallback to root for other urls
         historyApiFallback: true,
         inline: true,
         headers: { 'Access-Control-Allow-Origin': '*' },

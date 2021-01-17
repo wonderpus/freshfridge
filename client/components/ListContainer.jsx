@@ -1,10 +1,10 @@
 import React, { useState, useEffect }  from 'react';
 import List from './List.jsx';
 
-const ListContainer = () => {
-  const [items, setItems] = useState({ 
-    fridge: [{ name: 'lemons', priority: 2 }, { name: 'milk', priority: 1 }, { name: 'beans', priority: null }],
-    grocery: [{ name: 'chilis', priority: 2 }] });
+const ListContainer = ({fetched, setFetched}) => {
+  const [items, setItems] = useState([{}]);
+  // const [fetched, setFetched] = useState(false);
+  // format of data received from database: [ { name, priority, location, id } ]
 
   // useEffect hook replaces componentDidMount and componentDidUpdate
   // fires every single time one of the variables in the dependency array changes value
@@ -18,14 +18,22 @@ const ListContainer = () => {
         console.log('Heres your data: ', data);
         // set state with the fetched array
         setItems(data);
+        setFetched(true);
     }).catch((error) => console.log('ERR at List.jsx GET list: ', error));
-  }, [...items.fridge, ...items.grocery]);      
+  }, [fetched]);      
   // TODO: does useEffect work with 1D objects in the dependency array, or does it need primitive data types?
+
+  const fridgeArr = [];
+  const groceryArr = [];
+  items.forEach(item => {
+    if (item.location === 'fridge') fridgeArr.push(item);
+    if (item.location === 'grocery') groceryArr.push(item);
+  })
 
   return (
     <div>
-      <List type={"fridge"} items={items.fridge}/>
-      <List type={"grocery"} items={items.grocery}/>
+      <List type={"fridge"} items={fridgeArr}/>
+      <List type={"grocery"} items={groceryArr}/>
     </div>
   )
 };
