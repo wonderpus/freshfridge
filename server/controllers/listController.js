@@ -56,7 +56,7 @@ const listController = {
       db.query(query, id, (err, data) => {
         if(err) {
           return next({
-            log: `Express error handler caught in deleteItem ERROR: ${err}`,
+            log: `deleteItem ERROR: ${err}`,
             message: { 'err': 'An error occurred in deleteItem' }})
         } 
         else {
@@ -68,31 +68,30 @@ const listController = {
     
     //updateItem - based on column to update & new value, item_id.... next getList
     updateItem (req, res, next) {
-      // console.log('Data type of item id: ', typeof req.body.id);
-      const query = 'UPDATE items SET ' + req.body.set + ' = ' + req.body.newVal +
-      'WHERE _id = ' +  req.body.id;
+      console.log('updateItem request: ', req.body);
+      const query = 'UPDATE items SET ' + req.body.set + ' = ' + req.body.newVal + ' WHERE _id = ' + req.body.id + ';';
       
-      // alternative (less secure) approach: insert variable parameters into query using template literals ${___}
+      // alternative (less secure) approach: insert variable parameters into query using template literals ${___}. (Be sure to add columnInfo as the second parameter of db.query.)
       //$1 = location/priority/shared, $2 = updated value, $3 = _id of the item
       /*
         const query = `
         UPDATE items 
         SET ${req.body.set} = $1
-        WHERE _id = $2`;
+        WHERE _id = $2;`;
         const columnInfo = [req.body.newVal, req.body.id];
       */
       
-        db.query(query, (err, data) => {
-            if(err) {
-                return next({
-                  log: `Express error handler caught in updateItem ERROR: ${err}`,
-                  message: { 'err': 'An error occurred in updateItem' }})
-              } 
-              else {
-                // console.log('Result of updateItem query: ', data);
-                return next();
-              } 
-        });
+      db.query(query, (err, data) => {
+        if(err) {
+            return next({
+              log: `Express error handler caught in updateItem ERROR: ${err}`,
+              message: { 'err': 'An error occurred in updateItem' }})
+        } 
+        else {
+          // console.log('Result of updateItem query: ', data);
+          return next();
+        } 
+      });
     }
     //moving is just updating location
 }
