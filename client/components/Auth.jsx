@@ -62,12 +62,10 @@ const Auth = () => {
         name: username,
         password: password
       })
-    }).then((res) => {
-      console.log("in the response: ", res); 
-      res.json()})
-      .then((data) => {
-        console.log('Response to sign-up PUT: ', data);
-        // TODO: Invalid signups return a json-formatted object with a message. Display that message to the user.
+    }).then((res) => res.json())
+      .then((res) => {
+      console.log("Response to sign-up PUT: ", res); 
+      // TODO: Invalid signups return a json-formatted object with a message. Display that message to the user.
     }).catch((error) => console.log('ERR at sign-up POST: ', error));
   }
 
@@ -82,8 +80,8 @@ const Auth = () => {
         password: password
       })
     }).then((res) => res.json())
-      .then((data) => {
-        console.log('Response to log-in PUT: ', data);
+      .then((res) => {
+        console.log('Response to log-in PUT: ', res);
         // TODO: Invalid logins return a json-formatted object with a message. Display that message to the user.
     }).catch((error) => console.log('ERR at log-in POST: ', error));
   }
