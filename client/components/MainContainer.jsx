@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import ListContainer from './ListContainer.jsx';
 import AddItem from './AddItem.jsx';
 import Auth from './Auth.jsx';
 import GoogleAuth from './GoogleAuth.jsx';
 
 const MainContainer = () => {
+  const [fetched, setFetched] = useState(false);
+
   return (
     <div className="MainContainer">
       <h1>Fresh Fridge</h1>
       <Auth />
-      <GoogleAuth />
-      <ListContainer />
-      <AddItem />
+      {/* <GoogleAuth /> */}
+      <ListContainer fetched={fetched} setFetched={setFetched} />
+      <AddItem setFetched={setFetched} />
     </div>
   )
 };
