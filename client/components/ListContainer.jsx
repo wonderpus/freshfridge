@@ -15,7 +15,7 @@ const ListContainer = ({fetched, setFetched}) => {
       method: 'GET',
     }).then((res) => res.json())
       .then((data) => {
-        console.log('List of all items owned by this user: ', data);
+        // console.log('List of all items owned by this user: ', data);
         // set state with the fetched array
         setItems(data);
         // "fetched" flag will remain set to "true", preventing an infinite loop of useEffect executions, until some other event changes it to false.

@@ -25,7 +25,7 @@ const FridgeList = ({ items, remove, move }) => {
     .map((item, index) => {
       const prior = setPriorityClass(item);
 
-      return <li key={`type${index}`}>
+      return <li key={`type${index}`} className={prior}>
                 {`${item.name}`}
                 <span className="align-right">
                   <button onClick={() => move(item._id, '\'grocery\'')}> {/* ** SQL needs string parameters that are going to be concatenated onto a query to have a second pair of single quotes ** */}
