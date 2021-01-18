@@ -4,10 +4,10 @@ import FridgeList from './FridgeList.jsx';
 
 const ListContainer = ({fetched, setFetched}) => {
   const [items, setItems] = useState([{}]);
-  // format of data received from database: [ { name, priority, location, _id } ]
+  // format of data stored in items: [ { name, priority, location, _id }, { name, priority, location, _id } ]
   
-  // useEffect hook replaces componentDidMount and componentDidUpdate
-  // fires every single time one of the variables in the dependency array changes value
+  // useEffect hook replaces componentDidMount and componentDidUpdate; essentially, it's an event listener looking for changes in this component's state variables
+  // fires every time one of the variables in the dependency array changes value
   // useEffect(callback, [dependencyArray]);
   useEffect(() => {
     // get items from the database: initiate an http request
@@ -18,6 +18,7 @@ const ListContainer = ({fetched, setFetched}) => {
         console.log('List of all items owned by this user: ', data);
         // set state with the fetched array
         setItems(data);
+        // "fetched" flag will remain set to "true", preventing an infinite loop of useEffect executions, until some other event changes it to false.
         setFetched(true);
     }).catch((error) => console.log('ERR at List.jsx GET: ', error));
   }, [fetched]);
@@ -26,7 +27,7 @@ const ListContainer = ({fetched, setFetched}) => {
     const reqBody = {
       id: _id
     };
-    console.log('removeItem request: ', reqBody);
+    // console.log('removeItem request: ', reqBody);
 
     fetch('/lists', {
       method: 'DELETE',
@@ -37,8 +38,7 @@ const ListContainer = ({fetched, setFetched}) => {
     }).then((res) => res.json())
       .then((data) => {
         console.log('Response to DELETE: ', data);
-        // set state with the fetched array
-        // setItems(data);
+        // reset "fetched" flag to trigger useEffect's callback function
         setFetched(false);
     }).catch((error) => console.log('ERR at ListContainer.jsx DELETE: ', error));
   }
@@ -50,7 +50,7 @@ const ListContainer = ({fetched, setFetched}) => {
       id: _id
     };
 
-    console.log('moveItem request: ', reqBody);
+    // console.log('moveItem request: ', reqBody);
 
     fetch('/lists', {
       method: 'PATCH',
@@ -61,8 +61,7 @@ const ListContainer = ({fetched, setFetched}) => {
     }).then((res) => res.json())
       .then((data) => {
         console.log('Response to PATCH: ', data);
-        // set state with the fetched array
-        // setItems(data);
+        // reset "fetched" flag to trigger a GET request and re-render
         setFetched(false);
     }).catch((error) => console.log('ERR at ListContainer.jsx PATCH: ', error));
   }

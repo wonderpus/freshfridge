@@ -28,8 +28,12 @@ const FridgeList = ({ items, remove, move }) => {
       return <li key={`type${index}`}>
                 {`${item.name}`}
                 <span className="align-right">
-                  <button onClick={() => remove(item._id)}><i className="fas fa-trash-alt"></i></button>
-                  <button onClick={() => move(item._id, '\'grocery\'')}><i className="far fa-check-circle"></i></button>
+                  <button onClick={() => move(item._id, '\'grocery\'')}> {/* ** SQL needs string parameters that are going to be concatenated onto a query to have a second pair of single quotes ** */}
+                    Add to Grocery List
+                  </button>
+                  <button onClick={() => remove(item._id)}>
+                    <i className="fas fa-trash-alt"></i>
+                  </button>
                 </span>
               </li>;
     });
