@@ -61,27 +61,6 @@ authController.checkUniqueness = (req, res, next) => {
   });
   console.log('Unique username');
   return next();
-
-  /*
-  // query for the _id on users table that matches the received name and password
-  const query = 'SELECT _id FROM users WHERE name=' + name;
-
-  db.query(query, (error, result) => {
-    if (error) {
-      console.log('checkUniqueness ERROR: ', error);
-      return next(error);
-    }
-
-    // console.log('checkUniqueness query result: ', result.rows);
-    // if the response from the database is an empty array, that means no user was found with that username. User may continue sign-up process.
-    if (!result.rows.length) {
-      return next();
-    }
-    else {
-      return res.status(203).send('An account with that username already exists. Please log in or try a different username.');
-    }
-  });
-  */
 };
 
 authController.addUser = (req, res, next) => {
