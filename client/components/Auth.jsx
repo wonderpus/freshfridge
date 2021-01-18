@@ -57,7 +57,7 @@ const Auth = () => {
 
     fetch('/auth/signup', {
       method: 'PUT',
-      headers: {"Content-Type": "Application/json"},
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         name: username,
         password: password
@@ -76,7 +76,7 @@ const Auth = () => {
 
     fetch('/auth/login', {
       method: 'PUT',
-      headers: {"Content-Type": "Application/json"},
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         name: username,
         password: password

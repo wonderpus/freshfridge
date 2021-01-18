@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AddItem = () => {
+const AddItem = ({setFetched}) => {
   const [itemName, setItemName] = useState("");   // item name
   const [priority, setPriority] = useState(null);    // priority
   const [shareability, setShareability] = useState(false);    // shareable
@@ -12,14 +12,18 @@ const AddItem = () => {
 
     fetch('/lists/', {
       method: 'PUT',
-      body: {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
         name: itemName,
         location: assignedList,
         priority,
         shared: shareability
-      }
+      })
     }).then((res) => res.json())
       .then((data) => {
+        setFetched(false);
         console.log('Response to AddItem.jsx PUT: ', data);
     }).catch((error) => console.log('ERR at AddItem.jsx PUT: ', error));
   }

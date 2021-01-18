@@ -25,7 +25,7 @@ authController.findUser = (req, res, next) => {
     console.log('findUser query result: ', result.rows);
     // if the response from the database is an empty array, that means no user was found with that name and password
     if (!result.rows.length) {
-      return res.status(404).json({ error: 'Invalid login.' });
+      return res.status(203).send('Invalid login.');
     }
     else {
       // Add the found user id to res.locals so that it can be used by the next middleware.
@@ -37,20 +37,15 @@ authController.findUser = (req, res, next) => {
 
 // query database to find out if a record already exists on users table with that username
 authController.checkUniqueness = (req, res, next) => {
-  const { name, password } = req.body;
-  console.log('Name and password received at authController.checkUniqueness: ', name, password);
+  const { name } = req.body;
+  console.log('Name and password received at authController.checkUniqueness: ', req.body);
 
   // query for the _id on users table that matches the received name and password
-  const query = {
-    text: `SELECT _id
-    FROM users
-    WHERE name=$1`,
-    values: [name]
-  }
+  const query = 'SELECT _id FROM users WHERE name=' + name;
 
   db.query(query, (error, result) => {
     if (error) {
-      console.log('findUser ERROR: ', error);
+      console.log('checkUniqueness ERROR: ', error);
       return next(error);
     }
 
@@ -60,7 +55,7 @@ authController.checkUniqueness = (req, res, next) => {
       return next();
     }
     else {
-      return res.status(404).json({ error: 'An account with that username already exists. Please log in or try a different username.' });
+      return res.status(203).send('An account with that username already exists. Please log in or try a different username.');
     }
   });
 };
@@ -99,8 +94,8 @@ authController.setCookie = (req, res, next) => {
   console.log('Executing setCookie');
   // receives user id on res.locals (?)
   // sets a cookie
-  res.cookie('user', res.locals.user_id); //->  res.cookie(key,value)
-  console.log ('Cookie has been created!', res.locals.user_id);
+  res.cookie('user_id', res.locals.user_id); //->  res.cookie(key,value)
+  console.log ('Cookie has been created!', res.cookie);
   return next();
 };
 

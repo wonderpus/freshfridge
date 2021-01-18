@@ -5,7 +5,7 @@ module.exports = {
     entry: path.join(__dirname, '/index.js'), 
     output: {
         path: path.resolve(__dirname, 'dist'),
-        //publicPath: '/',      // what does this setting do?
+        // publicPath: '/',      // this setting was breaking the webpack
         filename: 'index_bundle.js'
     },
     module: {
@@ -46,6 +46,7 @@ module.exports = {
         hot: true,
         // match the output 'publicPath'
         publicPath: '/',
+        // publicPath: '/dist/',    // this setting was breaking the webpack
         // fallback to root for other urls
         historyApiFallback: true,
         inline: true,
@@ -58,13 +59,17 @@ module.exports = {
          */
         proxy: {
           '**': {
-            target: 'http://localhost:3000/',
+             target: 'http://localhost:3000/',
             secure: false,
-          }
-        //   '/assets/**': {
-        //     target: 'http://localhost:3000/',
-        //     secure: false,
-        //   },
+           },
+//         '/auth': {
+//             target: 'http://localhost:3000/',
+//             secure: false,
+//           },
+//         '/lists': {
+//             target: 'http://localhost:3000/',
+//             secure: false,
+//           }
         },
       },
 }

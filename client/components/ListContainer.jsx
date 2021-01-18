@@ -1,13 +1,10 @@
 import React, { useState, useEffect }  from 'react';
 import List from './List.jsx';
 
-const ListContainer = () => {
-  const [items, setItems] = useState({ 
-    fridge: [{ name: 'lemons', priority: 2 }, { name: 'milk', priority: 1 }, { name: 'beans', priority: null }],
-    grocery: [{ name: 'chilis', priority: 2 }] });
-
-  const fridgeArray = [];
-   const groceryArray = [];
+const ListContainer = ({fetched, setFetched}) => {
+  const [items, setItems] = useState([{}]);
+  // format of data received from database: [ { name, priority, location, id } ]
+  
   // useEffect hook replaces componentDidMount and componentDidUpdate
   // fires every single time one of the variables in the dependency array changes value
   // useEffect(callback, [dependencyArray]);
@@ -19,24 +16,22 @@ const ListContainer = () => {
       .then((data) => {
         console.log('Heres your data: ', data);
         // set state with the fetched array
-        // iterate over array, checking location column
-        //if location === "fridge", setItems(item --> this.state.fridge) 
-        
-       
-        data.map(dataObj => {
-          if (dataObj.location === 'fridge') {
-            if (!fridgeArray.includes(dataObj)) fridgeArray.push(dataObj);}
-          if (dataObj.location === 'grocery') {
-            if (!groceryArray.includes(dataObj)) groceryArray.push(dataObj);}
-        })
-        setItems({fridge: fridgeArray, grocery: groceryArray});
+        setItems(data);
+        setFetched(true);
     }).catch((error) => console.log('ERR at List.jsx GET list: ', error));
-  }, [...items.fridge, ...items.grocery]);      // TODO: does useEffect work with 1D objects in the dependency array?
+  }, [fetched]);      
+
+  const fridgeArr = [];
+  const groceryArr = [];
+  items.forEach(item => {
+    if (item.location === 'fridge') fridgeArr.push(item);
+    if (item.location === 'grocery') groceryArr.push(item);
+  })
 
   return (
     <div>
-      <List type={"fridge"} items={items.fridge}/>
-      <List type={"grocery"} items={items.grocery}/>
+      <List type={"fridge"} items={fridgeArr}/>
+      <List type={"grocery"} items={groceryArr}/>
     </div>
   )
 };

@@ -3,50 +3,55 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-//const expressHbs = require('express-handlebars');
-//const bodyparser = require('body-parser');
+const bodyParser = require("body-parser");
 const authRouter = require('./routes/authRouter.js');
 const listRouter = require('./routes/listRouter.js');
 
 //require model for query
 const db = require('./models/freshModel');
-
-//const PORT = 3000;
+console.log('NODE_ENV', process.env.NODE_ENV);
 const app = express();
-console.log(process.env.NODE_ENV);
 
-// app.use(bodyParser.urlencoded({ extended: true }));
+const corsOptions = {
+  origin: "http://localhost:8000"   // what should this be?
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
 
-// example of serving a request without a router
-// serves index.html on the route '/'
+// serves index.html on the route '/' (do we want this above /auth and /lists routes?)
+// app.get('/', (req, res) => {
+//   return res.status(200).sendFile(path.join(__dirname, '../index.html')); 
+// });
+
+//Any requests to auth will be handled within authRouter.js
+app.use('/auth', authRouter);
+
+//Any requests to list will be handled within listRouter.js
+app.use('/lists', listRouter);
+
+// serve index.html on the route '/'
 app.get('/', (req, res) => {
+  console.log('Serving index.html');
   return res.status(200).sendFile(path.join(__dirname, '../index.html')); 
 });
 
-//Any requests to auth will be handled within OAuth.js.
-app.use('/auth', authRouter);
-
-//Any requests to list will be handled within listRouter.js.
-app.use('/lists', listRouter);
-
 
 //testing our query 
-app.get('/testGet', (req, res) => {
-  const query = 'SELECT * FROM users'
-  db.query(query, (err, data) => {
-    if(err) {
-      console.log(err);
-      return res.send(err);
-    }
-    else {
-      console.log(data);
-      return res.send(data.rows);
-    }
-  })
-});
+// app.get('/testGet', (req, res) => {
+//   const query = 'SELECT * FROM users'
+//   db.query(query, (err, data) => {
+//     if(err) {
+//       console.log(err);
+//       return res.send(err);
+//     }
+//     else {
+//       console.log(data);
+//       return res.send(data.rows);
+//     }
+//   })
+// });
 
 
 // default error handler
@@ -65,4 +70,5 @@ app.listen(3000, () => {
   console.log(`Server listening on port: 3000...`);
 });
 
-module.exports = app;
+
+// module.exports = app;
