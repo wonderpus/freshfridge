@@ -11,13 +11,14 @@ const listRouter = require('./routes/listRouter.js');
 //require model for query
 const db = require('./models/freshModel');
 
-const PORT = 3000;
+//const PORT = 3000;
 const app = express();
-
+console.log(process.env.NODE_ENV);
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.json());    // parses request bodies
+app.use(express.json());
+app.use(cors());
 
 // example of serving a request without a router
 // serves index.html on the route '/'
@@ -60,8 +61,8 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}...`);
+app.listen(3000, () => {
+  console.log(`Server listening on port: 3000...`);
 });
 
 module.exports = app;

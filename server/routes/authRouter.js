@@ -19,13 +19,13 @@ const client = new OAuth2Client(credentials.clientID)
 
 // ROUTER METHODS
 // vanilla log in
-router.post('/login',    
+router.put('/login',    
     authController.findUser,
     authController.setCookie,
     (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
 );
 
-router.post('/signup',
+router.put('/signup',
     authController.checkUniqueness,    
     authController.addUser,
     authController.findUser,

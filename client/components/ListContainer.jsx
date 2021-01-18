@@ -6,18 +6,30 @@ const ListContainer = () => {
     fridge: [{ name: 'lemons', priority: 2 }, { name: 'milk', priority: 1 }, { name: 'beans', priority: null }],
     grocery: [{ name: 'chilis', priority: 2 }] });
 
+  const fridgeArray = [];
+   const groceryArray = [];
   // useEffect hook replaces componentDidMount and componentDidUpdate
   // fires every single time one of the variables in the dependency array changes value
   // useEffect(callback, [dependencyArray]);
   useEffect(() => {
     // get items from the database: initiate an http request
-    fetch('/lists/', {
+    fetch('/lists', {
       method: 'GET',
     }).then((res) => res.json())
       .then((data) => {
         console.log('Heres your data: ', data);
         // set state with the fetched array
-        setItems(data);
+        // iterate over array, checking location column
+        //if location === "fridge", setItems(item --> this.state.fridge) 
+        
+       
+        data.map(dataObj => {
+          if (dataObj.location === 'fridge') {
+            if (!fridgeArray.includes(dataObj)) fridgeArray.push(dataObj);}
+          if (dataObj.location === 'grocery') {
+            if (!groceryArray.includes(dataObj)) groceryArray.push(dataObj);}
+        })
+        setItems({fridge: fridgeArray, grocery: groceryArray});
     }).catch((error) => console.log('ERR at List.jsx GET list: ', error));
   }, [...items.fridge, ...items.grocery]);      // TODO: does useEffect work with 1D objects in the dependency array?
 

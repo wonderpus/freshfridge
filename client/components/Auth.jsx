@@ -55,33 +55,37 @@ const Auth = () => {
       alert('Your passwords must match.');
     };
 
-    fetch('/signup', {
+    fetch('/auth/signup', {
       method: 'PUT',
-      body: {
+      headers: {"Content-Type": "Application/json"},
+      body: JSON.stringify({
         name: username,
-        password
-      }
-    }).then((res) => res.json())
+        password: password
+      })
+    }).then((res) => {
+      console.log("in the response: ", res); 
+      res.json()})
       .then((data) => {
         console.log('Response to sign-up PUT: ', data);
         // TODO: Invalid signups return a json-formatted object with a message. Display that message to the user.
-    }).catch((error) => console.log('ERR at sign-up PUT: ', error));
+    }).catch((error) => console.log('ERR at sign-up POST: ', error));
   }
 
   const logInUser = () => {
-    console.log('Logging in user: ', username, password);
+    console.log('Did you try? Logging in user: ', username, password);
 
-    fetch('/login', {
-      method: 'POST',
-      body: {
+    fetch('/auth/login', {
+      method: 'PUT',
+      headers: {"Content-Type": "Application/json"},
+      body: JSON.stringify({
         name: username,
-        password,
-      }
+        password: password
+      })
     }).then((res) => res.json())
       .then((data) => {
         console.log('Response to log-in PUT: ', data);
         // TODO: Invalid logins return a json-formatted object with a message. Display that message to the user.
-    }).catch((error) => console.log('ERR at log-in PUT: ', error));
+    }).catch((error) => console.log('ERR at log-in POST: ', error));
   }
 
   return (

@@ -4,6 +4,7 @@ const authController = {};
 
 authController.findUser = (req, res, next) => {
   // query our database with username and password to find this user. We want to get their user id.
+  console.log('authController.findUser request body (hi cam): ', req.body);
   const { name, password } = req.body;
   console.log('Name and password received at authController.findUser: ', name, password);
 
@@ -44,7 +45,7 @@ authController.checkUniqueness = (req, res, next) => {
     text: `SELECT _id
     FROM users
     WHERE name=$1`,
-    values: [name, password]
+    values: [name]
   }
 
   db.query(query, (error, result) => {
@@ -70,13 +71,14 @@ authController.addUser = (req, res, next) => {
   console.log('Name and password received at authController.addUser: ', name, password);
 
   // query for the _id on users table that matches the received name and password
-  const query = {
-    text: `INSERT INTO users
-    VALUES $1, $2`,
-    values: [name, password]
-  };
+  const query = 
+    `INSERT INTO users (name, password)
+    VALUES ($1, $2)`;
+  const values = [name, password]
+  ;
 
-  db.query(query, (error, result) => {
+  console.log("the addUser query: ", query, "values: ", values);
+  db.query(query, values, (error, result) => {
     if (error) {
       console.log('addUser ERROR: ', error);
       return next(error);
@@ -97,6 +99,8 @@ authController.setCookie = (req, res, next) => {
   console.log('Executing setCookie');
   // receives user id on res.locals (?)
   // sets a cookie
+  res.cookie('user', res.locals.user_id); //->  res.cookie(key,value)
+  console.log ('Cookie has been created!', res.locals.user_id);
   return next();
 };
 

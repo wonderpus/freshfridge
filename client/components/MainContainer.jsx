@@ -9,7 +9,7 @@ const MainContainer = () => {
     <div className="MainContainer">
       <h1>Fresh Fridge</h1>
       <Auth />
-      <GoogleAuth />
+      {/* <GoogleAuth /> */}
       <ListContainer />
       <AddItem />
     </div>

@@ -8,6 +8,7 @@ const listController = {
     //Login - Query users table to confirm name & password, return user_id & household_id (if any)
     // getList - Query items table & return items associated w user (_id, names, priority, shared?, location)
     getList (req, res, next) {
+      console.log("here is what getList is getting: ", req.body)
       const query = `
         SELECT _id, name, priority, location, shared
         FROM items
@@ -77,7 +78,7 @@ const listController = {
     updateItem (req, res, next) {
       console.log('Data type of item id: ', typeof req.body.id);
         const query = 'UPDATE items SET ' + req.body.set + ' = ' + req.body.newVal +
-        'WHERE _id = ' + ' req.body.id;
+        'WHERE _id = ' +  req.body.id;
         const columnInfo = [req.body.newVal, req.body.id];
         db.query(query, columnInfo, (err, data) => {
             if(err) {

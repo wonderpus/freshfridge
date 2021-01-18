@@ -2,10 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './index.js', 
+    entry: path.join(__dirname, '/index.js'), 
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: './',      // what does this setting do?
+        //publicPath: '/',      // what does this setting do?
         filename: 'index_bundle.js'
     },
     module: {
@@ -41,11 +41,11 @@ module.exports = {
         host: 'localhost',
         port: 8000,
         // match the output path
-        contentBase: './', 
+        contentBase: path.resolve(__dirname, 'dist'), 
         // enable HMR on the devServer
         hot: true,
         // match the output 'publicPath'
-        publicPath: './dist/',
+        publicPath: '/',
         // fallback to root for other urls
         historyApiFallback: true,
         inline: true,
@@ -57,7 +57,7 @@ module.exports = {
          * to localhost:3000/api/* (where our Express server is running)
          */
         proxy: {
-          '/api': {
+          '**': {
             target: 'http://localhost:3000/',
             secure: false,
           }
