@@ -2,11 +2,25 @@ const db = require('../models/freshModel.js');
 
 const authController = {};
 
+authController.getAllUsers = (req, res, next) => {
+  const query = 'SELECT name FROM users';
+
+  db.query(query, (error, result) => {
+    if (error) {
+      console.log('getAllUsers ERROR: ', error);
+      return next(error);
+    }
+
+    console.log('getAllUsers query result: ', result.rows);
+    res.locals.allUsers = result.rows;
+    return next();
+  });
+}
+
 authController.findUser = (req, res, next) => {
   // query our database with username and password to find this user. We want to get their user id.
-  console.log('authController.findUser request body (hi cam): ', req.body);
   const { name, password } = req.body;
-  console.log('Name and password received at authController.findUser: ', name, password);
+  // console.log('Name and password received at authController.findUser: ', name, password);
 
   // query for the _id on users table that matches the received name and password
   const query = {
@@ -38,8 +52,17 @@ authController.findUser = (req, res, next) => {
 // query database to find out if a record already exists on users table with that username
 authController.checkUniqueness = (req, res, next) => {
   const { name } = req.body;
-  console.log('Name and password received at authController.checkUniqueness: ', req.body);
+  // console.log('Name received at authController.checkUniqueness: ', req.body);
+  res.locals.allUsers.forEach((user) => {
+    if (user.name === name) {
+      console.log('An account with that username already exists. Please log in or try a different username.')
+      return res.status(203).send('An account with that username already exists. Please log in or try a different username.');
+    }
+  });
+  console.log('Unique username');
+  return next();
 
+  /*
   // query for the _id on users table that matches the received name and password
   const query = 'SELECT _id FROM users WHERE name=' + name;
 
@@ -49,7 +72,7 @@ authController.checkUniqueness = (req, res, next) => {
       return next(error);
     }
 
-    console.log('checkUniqueness query result: ', result.rows);
+    // console.log('checkUniqueness query result: ', result.rows);
     // if the response from the database is an empty array, that means no user was found with that username. User may continue sign-up process.
     if (!result.rows.length) {
       return next();
@@ -58,28 +81,28 @@ authController.checkUniqueness = (req, res, next) => {
       return res.status(203).send('An account with that username already exists. Please log in or try a different username.');
     }
   });
+  */
 };
 
 authController.addUser = (req, res, next) => {
   // add this user to the database. We want to get their user id.
   const { name, password } = req.body;
-  console.log('Name and password received at authController.addUser: ', name, password);
+  // console.log('Name and password received at authController.addUser: ', name, password);
 
   // query for the _id on users table that matches the received name and password
   const query = 
     `INSERT INTO users (name, password)
     VALUES ($1, $2)`;
-  const values = [name, password]
-  ;
+  const values = [name, password];
 
-  console.log("the addUser query: ", query, "values: ", values);
+  // console.log("the addUser query: ", query, "values: ", values);
   db.query(query, values, (error, result) => {
     if (error) {
       console.log('addUser ERROR: ', error);
       return next(error);
     }
 
-    console.log('addUser query result: ', result.rows);
+    // console.log('addUser query result: ', result.rows);
     return next();
   });
 };
@@ -91,7 +114,6 @@ authController.addUser = (req, res, next) => {
 // req.cookies.userId = user.id; 
 
 authController.setCookie = (req, res, next) => {
-  console.log('Executing setCookie');
   // receives user id on res.locals (?)
   // sets a cookie
   res.cookie('user_id', res.locals.user_id); //->  res.cookie(key,value)
