@@ -9,7 +9,7 @@ const listRouter = require('./routes/listRouter.js');
 
 //require model for query
 const db = require('./models/freshModel');
-console.log('NODE_ENV', process.env.NODE_ENV);
+// console.log('NODE_ENV', process.env.NODE_ENV);
 const app = express();
 
 const corsOptions = {

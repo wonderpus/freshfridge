@@ -4,8 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: path.join(__dirname, '/index.js'), 
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        // publicPath: '/',      // this setting was breaking the webpack
+        path: path.join(__dirname, '/dist'),
+        publicPath: '/dist/',   // explanation: https://stackoverflow.com/a/42717524
         filename: 'index_bundle.js'
     },
     module: {
@@ -32,21 +32,18 @@ module.exports = {
         ]
     },
     mode: process.env.NODE_ENV,
-    plugins: [
-        new HtmlWebpackPlugin({  //what does this do?
-            template: './index.html'
-        })
-    ],
+    // plugins: [
+    //     new HtmlWebpackPlugin({  //what does this do?
+    //         template: './index.html'
+    //     })
+    // ],
     devServer: {
         host: 'localhost',
         port: 8000,
-        // match the output path
-        contentBase: path.resolve(__dirname, 'dist'), 
+        // "Content not from Webpack is served from...":
+        contentBase: path.join(__dirname, '/'), 
         // enable HMR on the devServer
         hot: true,
-        // match the output 'publicPath'
-        publicPath: '/',
-        // publicPath: '/dist/',    // this setting was breaking the webpack
         // fallback to root for other urls
         historyApiFallback: true,
         inline: true,
