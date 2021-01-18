@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './index.js', 
+    entry: path.join(__dirname, '/index.js'), 
     output: {
         path: path.resolve(__dirname, 'dist'),
         // publicPath: '/',      // this setting was breaking the webpack
@@ -40,13 +40,14 @@ module.exports = {
     devServer: {
         host: 'localhost',
         port: 8000,
-        // where to load static files from (eg, index.html, images if we had them)
-        // contentBase: path.join(__dirname, 'index.html'), / this setting was breaking the webpack
+        // match the output path
+        contentBase: path.resolve(__dirname, 'dist'), 
         // enable HMR on the devServer
         hot: true,
-        // // match the output 'publicPath'
-        publicPath: '/dist/',    // this setting was breaking the webpack
-        // // fallback to root for other urls
+        // match the output 'publicPath'
+        publicPath: '/',
+        // publicPath: '/dist/',    // this setting was breaking the webpack
+        // fallback to root for other urls
         historyApiFallback: true,
         inline: true,
         headers: { 'Access-Control-Allow-Origin': '*' },
@@ -57,18 +58,18 @@ module.exports = {
          * to localhost:3000/api/* (where our Express server is running)
          */
         proxy: {
-          '/auth': {
-            target: 'http://localhost:3000/',
+          '**': {
+             target: 'http://localhost:3000/',
             secure: false,
-          },
-          '/lists': {
-            target: 'http://localhost:3000/',
-            secure: false,
-          }
-        //   '/assets/**': {
-        //     target: 'http://localhost:3000/',
-        //     secure: false,
-        //   },
+           },
+//         '/auth': {
+//             target: 'http://localhost:3000/',
+//             secure: false,
+//           },
+//         '/lists': {
+//             target: 'http://localhost:3000/',
+//             secure: false,
+//           }
         },
       },
 }

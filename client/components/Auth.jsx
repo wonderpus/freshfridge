@@ -56,37 +56,35 @@ const Auth = () => {
     };
 
     fetch('/auth/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json charset=utf-8'
-      },
+      method: 'PUT',
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         name: username,
-        password
+        password: password
       })
-    })
-      // .then((res) => res.json())
+    }).then((res) => {
+      console.log("in the response: ", res); 
+      res.json()})
       .then((data) => {
-        console.log('Response to sign-up POST: ', data);
+        console.log('Response to sign-up PUT: ', data);
+        // TODO: Invalid signups return a json-formatted object with a message. Display that message to the user.
     }).catch((error) => console.log('ERR at sign-up POST: ', error));
   }
 
   const logInUser = () => {
-    console.log('Logging in user: ', username, password);
+    console.log('Did you try? Logging in user: ', username, password);
 
     fetch('/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json charset=utf-8'
-      },
+      method: 'PUT',
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         name: username,
-        password: password,
+        password: password
       })
-    })
-    // .then((res) => res.json())
+    }).then((res) => res.json())
       .then((data) => {
-        console.log('Response to log-in POST: ', data);
+        console.log('Response to log-in PUT: ', data);
+        // TODO: Invalid logins return a json-formatted object with a message. Display that message to the user.
     }).catch((error) => console.log('ERR at log-in POST: ', error));
   }
 

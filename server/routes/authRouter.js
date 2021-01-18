@@ -9,14 +9,14 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json()); 
 
-// vanilla authentication
-router.post('/login',    
+// vanilla log in
+router.put('/login',    
     authController.findUser,
     authController.setCookie,
     (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
 );
 
-router.post('/signup',
+router.put('/signup',
     authController.checkUniqueness,    
     authController.addUser,
     authController.findUser,

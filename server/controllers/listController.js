@@ -1,13 +1,14 @@
 const db = require('../models/freshModel.js');
 
-// TODO: get the actual user id off the cookie.
-const USER_ID = 1;
+// We'll get the actual user id off the cookie.
+// const USER_ID = 1;
 
 const listController = {
     //Sign-up - Add to users table
     //Login - Query users table to confirm name & password, return user_id & household_id (if any)
     // getList - Query items table & return items associated w user (_id, names, priority, shared?, location)
     getList (req, res, next) {
+      console.log("here is what getList is getting: ", req.body)
       const query = `
         SELECT _id, name, priority, location, shared
         FROM items
@@ -74,12 +75,18 @@ const listController = {
     //updateItem - based on column to update & new value, item_id.... next getList
     //$1 = location/priority/shared, $2 = updated value, $3 = _id of the item
     updateItem (req, res, next) {
-        const query = `
-        UPDATE items 
-        SET ${req.body.set} = $1
-        WHERE _id = $2`;
-        const columnInfo = [req.body.newVal, req.body.id];
-        db.query(query, columnInfo, (err, data) => {
+      console.log('Data type of item id: ', typeof req.body.id);
+      const query = 'UPDATE items SET ' + req.body.set + ' = ' + req.body.newVal +
+      'WHERE _id = ' +  req.body.id;
+      
+      // alternative approach: template literals ${___}
+//         const query = `
+//         UPDATE items 
+//         SET ${req.body.set} = $1
+//         WHERE _id = $2`;
+//         const columnInfo = [req.body.newVal, req.body.id];
+      
+        db.query(query, (err, data) => {
             if(err) {
                 return next({
                   log: `Express error handler caught in updateItem ERROR: ${err}`,

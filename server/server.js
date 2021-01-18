@@ -9,20 +9,21 @@ const listRouter = require('./routes/listRouter.js');
 
 //require model for query
 const db = require('./models/freshModel');
-const PORT = 3000;
+console.log('NODE_ENV', process.env.NODE_ENV);
 const app = express();
 
-var corsOptions = {
+const corsOptions = {
   origin: "http://localhost:8000"   // what should this be?
 };
 
 app.use(cors(corsOptions));
-// parse requests of content-type - application/json
-// app.use(bodyParser.json());
-// parse requests of content-type - application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.json());    // parses request bodies same as body-parser
+app.use(express.json());
+
+// serves index.html on the route '/' (do we want this above /auth and /lists routes?)
+// app.get('/', (req, res) => {
+//   return res.status(200).sendFile(path.join(__dirname, '../index.html')); 
+// });
 
 //Any requests to auth will be handled within authRouter.js
 app.use('/auth', authRouter);
@@ -38,19 +39,19 @@ app.get('/', (req, res) => {
 
 
 //testing our query 
-app.get('/testGet', (req, res) => {
-  const query = 'SELECT * FROM users'
-  db.query(query, (err, data) => {
-    if(err) {
-      console.log(err);
-      return res.send(err);
-    }
-    else {
-      console.log(data);
-      return res.send(data.rows);
-    }
-  })
-});
+// app.get('/testGet', (req, res) => {
+//   const query = 'SELECT * FROM users'
+//   db.query(query, (err, data) => {
+//     if(err) {
+//       console.log(err);
+//       return res.send(err);
+//     }
+//     else {
+//       console.log(data);
+//       return res.send(data.rows);
+//     }
+//   })
+// });
 
 
 // default error handler
@@ -65,8 +66,8 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}...`);
+app.listen(3000, () => {
+  console.log(`Server listening on port: 3000...`);
 });
 
 
