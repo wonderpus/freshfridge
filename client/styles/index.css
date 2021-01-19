@@ -2,17 +2,86 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 1vw;
+}
+
 body {
+  /* font-family: "Sofia", sans-serif; */
+  font-family: 'Times New Roman', Times, serif;
+  background: linear-gradient(
+    to top right,
+    blue, lightblue, white
+  );
+  background-attachment: fixed;
   padding: 0;
   margin: 0;
 }
 
+h1 {
+  margin: 10px, 0;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+h2,h3,h4,h5,h6 {
+  margin: 0px;
+}
+
 .MainContainer {
   padding: 10px 10px 10px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0px;
+}
+
+.addItemContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login {
+  margin: 10px; 
+  padding: 2px;
+  box-shadow: 10px 5px 5px rgb(55, 55, 55);
+  background: linear-gradient(
+    to top right,
+    lightgrey, silver, white
+  );
+}
+
+.dropdown {
+  margin: 10px; 
+  padding: 2px;
+  box-shadow: 10px 5px 5px rgb(55, 55, 55);
+  background: linear-gradient(
+    to top right,
+    lightgrey, silver, white
+  );
+}
+
+button {
+  margin: 10px; 
+  box-shadow: 10px 5px 5px rgb(55, 55, 55);
+  background: linear-gradient(
+    to top right,
+    lightgrey, silver, white
+  );
+}
+
+input {
+  margin: 10px;
 }
 
 div {
-  margin: 30px 0;
+  margin: 25px 0;
 }
 
 p {
@@ -20,17 +89,26 @@ p {
 }
 
 ol {
+  font-size: 1.1em;
+  font-family: "Sofia", sans-serif;
+  font-weight: bold;
   width: 200px;
 }
 
+li {
+  font-size: .8em;
+  font-weight: normal;
+  width: 75%
+}
+
 .high-priority {
-  background-color: red;
+  background-color: rgb(255, 0, 0, .75);
 }
 
 .med-priority {
-  background-color: yellow;
+  background-color: rgb(255, 255, 0, .75);
 }
 
 .low-priority {
-  background-color: green;
+  background-color: rgb(0, 126, 0, .75);
 }

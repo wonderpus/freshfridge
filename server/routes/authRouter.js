@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const cookieParser = require('cookie-parser');
 const authController = require('../controllers/authController.js');
+const listController = require('../controllers/listController.js');
 
 const app = express();
 app.use(cookieParser());
@@ -21,6 +22,14 @@ router.put('/signup',
     authController.addUser,
     authController.findUser,
     authController.setCookie,
+    (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
+);
+
+router.put('/logout', (req, res, next) => {
+    res.cookie('user_id', 2);
+    return next();
+    },
+    listController.getList, 
     (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
 );
 

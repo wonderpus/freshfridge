@@ -41,6 +41,12 @@ const Auth = () => {
             <button onClick={logInUser}>Log in</button>
           </div>
         );
+        case 'logout':
+          return (
+            <div>
+              <button onClick={logOut}>Click to confirm log out</button>
+            </div>
+          );  
       default:
         return '';
     }
@@ -88,17 +94,30 @@ const Auth = () => {
     }).catch((error) => console.log('ERR at log-in POST: ', error));
   }
 
+  const logOut = () => {
+
+    fetch('/auth/logout', {
+      method: 'PUT',
+    }).then((res) => res.json())
+      .then((data) => {
+        console.log('Response to log-in PUT: ', data);
+        // TODO: Invalid logins return a json-formatted object with a message. Display that message to the user.
+    }).catch((error) => console.log('ERR at log-in POST: ', error));
+  }
+
   return (
-    <div>
-      <p>Please log in.</p>
+    <div className='loginContainer'>
+      <h4>Please log in.</h4>
       {auth(authStr)}
 
-      <select defaultValue="" 
+      <select className='login'
+              defaultValue="" 
               placeholder="" 
               onChange={(event) => setAuthStr(event.target.value)}>
         <option value="" disabled>log in/sign up</option>
           <option value="login">log in</option>
           <option value="signup">sign up</option>
+          <option value="logout">log out</option>
       </select>
 
     </div>
