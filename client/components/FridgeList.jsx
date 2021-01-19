@@ -40,7 +40,7 @@ const FridgeList = ({ items, remove, move }) => {
 
   return (
     <div>
-      <ol> Fridge Contents
+      <ol className='list'> Fridge Contents
         {mappedItems}
       </ol>
     </div>
