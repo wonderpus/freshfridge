@@ -29,14 +29,15 @@ const AddItem = ({setFetched}) => {
   }
 
   return (
-    <div>
+    <div className='addItemContainer'>
       <h2>Add an Item</h2>
+      <div>
       <input type="text" 
             placeholder="item" 
             value={itemName} 
             onChange={(event) => setItemName(event.target.value)} required></input>
 
-      <select id="add-item-select" defaultValue={null} onChange={(event) => setPriority(event.target.value)}>
+      <select id="add-item-select" className='dropdown' defaultValue={null} onChange={(event) => setPriority(event.target.value)}>
         <option value={null}>priority (optional)</option>
         <option value={1}>high</option>
         <option value={2}>medium</option>
@@ -45,13 +46,14 @@ const AddItem = ({setFetched}) => {
 
       <label><input type="checkbox" value={shareability} onChange={(event) => setShareability(event.target.value)}></input>shareable?</label>
 
-      <select id="add-item-select" defaultValue={assignedList} onChange={(event) => setAssignedList(event.target.value)} required>
+      <select id="add-item-select" className='dropdown' defaultValue={assignedList} onChange={(event) => setAssignedList(event.target.value)} required>
         <option value="" disabled>add to: </option>
         <option value="fridge">fridge</option>
         <option value="grocery">grocery</option>
       </select>
 
       <button onClick={submit}>Add</button>
+      </div>
     </div>
   )
 };

@@ -9,7 +9,7 @@ const MainContainer = () => {
 
   return (
     <div className="MainContainer">
-      <h1>Fresh Fridge</h1>
+      <h1>FRESH FRIDGE</h1>
       <Auth />
       {/* <GoogleAuth /> */}
       <ListContainer fetched={fetched} setFetched={setFetched} />

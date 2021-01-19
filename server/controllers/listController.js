@@ -5,7 +5,11 @@ const listController = {
     //Login - Query users table to confirm name & password, return user_id & household_id (if any)
     // getList - Query items table & return items associated w user (_id, names, priority, shared?, location)
     getList (req, res, next) {
+
+      //console.log("here is what getList is getting: ", req.body)
+
       // console.log("here is what getList is getting: ", req.body)
+
       const query = `
         SELECT _id, name, priority, location, shared
         FROM items
@@ -18,7 +22,11 @@ const listController = {
             message: { 'err': 'An error occurred in getList' }})
         } 
         else {
+
+          //console.log('Result of getList query: ', data.rows);
+
           // console.log('Result of getList query: ', data.rows);
+
           res.locals.items = data.rows;
           return next();
         }
