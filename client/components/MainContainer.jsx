@@ -2,7 +2,7 @@ import React, { useState, useEffect }  from 'react';
 import ListContainer from './ListContainer.jsx';
 import AddItem from './AddItem.jsx';
 import Auth from './Auth.jsx';
-import GoogleAuth from './GoogleAuth.jsx';
+// import GoogleAuth from './GoogleAuth.jsx';
 
 const MainContainer = () => {
   const [fetched, setFetched] = useState(false);

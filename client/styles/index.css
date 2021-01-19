@@ -89,10 +89,22 @@ p {
 }
 
 ol {
+
   font-size: 1.1em;
   font-family: "Sofia", sans-serif;
   font-weight: bold;
   width: 200px;
+
+  min-width: 200px;
+  max-width: 300px;
+  font-weight: bold;
+}
+
+li {
+  font-weight: normal;
+  display: flex;
+  justify-content: space-between;
+
 }
 
 li {

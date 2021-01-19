@@ -12,18 +12,22 @@ app.use(express.json());
 
 // vanilla log in
 router.put('/login',    
-    authController.findUser,
-    authController.setCookie,
-    (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
+  authController.findUser,
+  authController.setCookie,
+  listController.getList,
+  (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
 );
 
 router.put('/signup',
-    authController.checkUniqueness,    
-    authController.addUser,
-    authController.findUser,
-    authController.setCookie,
-    (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
+  authController.getAllUsers,
+  authController.checkUniqueness,    
+  authController.addUser,
+  authController.findUser,
+  authController.setCookie,
+  listController.getList,
+  (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
 );
+
 
 router.put('/logout', (req, res, next) => {
     res.cookie('user_id', 2);
@@ -32,6 +36,12 @@ router.put('/logout', (req, res, next) => {
     listController.getList, 
     (req, res) => res.status(201).json(res.locals.user_id) // todo: what should be sent back on the response?
 );
+
+router.get('/users',
+  authController.getAllUsers,
+  (req, res) => res.status(200).json(res.locals.allUsers)
+)
+
 
 /* 
 TODO
