@@ -52,6 +52,8 @@ const Auth = () => {
     }
   }
 
+  // TODO for all: Use setFetched(false) to trigger a rerender when logging in to the grocery and fridge list loads automatically. 
+
   // click handler: initiates an http request to send the new user's information to the database
   // TODO: UX to warn user that they've entered two passwords that don't match.
   const signUpUser = () => {
